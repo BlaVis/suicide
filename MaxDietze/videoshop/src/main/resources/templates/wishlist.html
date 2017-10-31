@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+ 	
+ 	<title th:text="#{wishlist.title}">Wunschliste</title>
+    </head>
+    
+    <body>
+	<div class="ui container">
+    <header>
+        <h1 th:text="#{wishlist.title}">Wunschliste</h1>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+    <div th:unless="${wishlist.empty}">
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th th:text="#{wishlist.movieTitle}">Titel</th>
+                <th>Entfernen?</th>
+            </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+            <tr th:each="item : ${wishlist} ">
+                <td th:text="${item.productName}">Last Action Hero</td>
+                <td>
+                <form class="ui reply form" role="form" th:action="@{/delete}" method="post">
+                <input type="hidden" name="pid" value="0" th:value="${disc.id}"/>
+                    <Button type="submit" id="delete" name="delete" th:value="${item.íd}" >Entfernen</Button>
+                </form>
+                
+                </td>
+            </tr>
+            <tr>
+                <td>Last Action Hero</td><td>Last Action Hero</td>
+            </tr>
+            <tr>
+                <td>Last Action Hero</td><td>Last Action Hero</td>
+            </tr>
+            <tr>
+                <td>Last Action Hero</td><td>Last Action Hero</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <h2 th:if="${wishlist.empty}" th:text="#{wishlist.empty}">Leer</h2>
+    </div>
+    </body>
+</html>
